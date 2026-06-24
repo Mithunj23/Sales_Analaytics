@@ -1,0 +1,2 @@
+to connect postgresql:
+& "C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -U postgres
