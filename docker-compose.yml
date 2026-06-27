@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: sales_dashboard
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: Mithun6363
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
