@@ -2,3 +2,5 @@ to connect postgresql:
 & "C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -U postgres
 for entire execution 
 docker compose up --build
+
+database url-postgresql://postgres:Mithun636348@db.mvryqzgsknlgndjehjme.supabase.co:5432/postgres
