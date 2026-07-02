@@ -1,274 +1,117 @@
-# SalesIQ — Full-Stack Sales Analytics Dashboard
+SalesIQ — Sales Analytics Dashboard
 
-> A production-grade, recruiter-ready analytics dashboard analyzing 500+ transactions with interactive visualizations, statistical analysis, and automated reporting.
+A full-stack business intelligence dashboard that analyzes 600+ sales transactions and surfaces actionable insights through 11 interactive pages, statistical analysis, and automated reporting.
 
-![Tech Stack](https://img.shields.io/badge/Python-FastAPI-009688?style=flat-square&logo=fastapi)
-![Tech Stack](https://img.shields.io/badge/React-Vite-646CFF?style=flat-square&logo=vite)
-![Tech Stack](https://img.shields.io/badge/PostgreSQL-Database-336791?style=flat-square&logo=postgresql)
-![Tech Stack](https://img.shields.io/badge/Pandas-Analytics-150458?style=flat-square&logo=pandas)
 
----
+Tech Stack
 
-## Resume Statement
+LayerTechnologiesFrontendReact 18, Vite, Tailwind CSS, Recharts, React Router, AxiosBackendPython 3.11, FastAPI, SQLAlchemy, Pandas, NumPyDatabasePostgreSQL 15
 
-> *"Built an end-to-end Sales Analytics Dashboard using Python, SQL, Pandas, Statistical Analysis, and Data Visualization, analyzing 500+ transactions to uncover monthly revenue trends, regional performance, customer segmentation (RFM), discount impact, Pareto analysis, trend detection, and anomaly identification while generating automated CSV and JSON business insight reports."*
 
----
+What's Inside
 
-## Tech Stack
+11 Dashboard Pages
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18, Vite, Tailwind CSS, Recharts, React Router |
-| Backend | Python 3.11+, FastAPI, SQLAlchemy, Pandas, NumPy |
-| Database | PostgreSQL 15+ |
-| Analytics | Pandas, NumPy, SciPy, Statistical Z-score analysis |
-| Reporting | CSV export, JSON export, automated report generation |
+PageWhat it showsExecutive OverviewRevenue, profit, orders, customers, AOV, growth % KPIsRevenue TrendsMonthly revenue & profit with MoM growth rateRegional PerformanceRevenue, profit, margin by region — bar + radar chartsCustomer SegmentationRFM analysis — Champions, Loyal, At Risk, Lost segmentsProduct PerformanceTop products & categories by revenue and profitDiscount ImpactDiscount vs profit correlation, scatter plot, erosion alertsPareto 80/20Top 20% customers and products driving 80% revenueTrend DetectionMonthly trend classification with 3-month rolling averageAnomaly DetectionZ-score outlier detection — spikes and drops flaggedAI InsightsAuto-generated executive summary and recommendationsExport ReportsDownload CSV and JSON reports
 
----
+Analytics Methods
 
-## Features
 
-### Analytics Modules
+RFM Segmentation — Recency, Frequency, Monetary scoring (quintiles 1–5) to classify 5 customer segments
+Anomaly Detection — Z-score (|Z| > 2.5) flags statistical outliers as spikes or drops
+Pareto Analysis — Cumulative revenue % to identify the vital 20% of customers and products
+Trend Detection — MoM % change classifies each month as increasing / stable / declining with rolling average overlay
+Discount Correlation — Pearson r between discount rate and revenue/profit; negative profit correlation triggers a UI warning
+SQL Analytics — Window functions (RANK), CTEs for MoM growth, GROUP BY aggregations, COUNT DISTINCT for customer metrics
 
-| Module | Description |
-|--------|-------------|
-| 📊 Executive Dashboard | KPI cards: Revenue, Orders, Customers, Profit, AOV, Growth |
-| 📈 Revenue Trends | Monthly aggregation, MoM growth, area charts |
-| 🗺️ Regional Performance | Heatmaps, radar chart, regional comparison |
-| 👥 Customer Segmentation | RFM Analysis (Champions → Lost Customers) |
-| 📦 Product Performance | Revenue/profit ranking, category pie charts |
-| 🏷️ Discount Impact | Correlation analysis, scatter plots, profit erosion detection |
-| 📐 Pareto Analysis | 80/20 rule for customers and products |
-| 📉 Trend Detection | Seasonal patterns, rolling average, MoM classification |
-| ⚠️ Anomaly Detection | Z-score outlier detection (spikes & drops) |
-| 🧠 AI Insights | Executive summary, strategic recommendations |
-| 📥 Report Export | CSV (revenue/customer/product) + JSON insights |
-| 📤 CSV Upload | Custom dataset ingestion |
 
-### SQL Analytics
 
-- Window functions (RANK, running totals)
-- CTEs for multi-step aggregations
-- GROUP BY with monthly/regional/product dimensions
-- JOINs for customer-sales analysis
-- Aggregates: SUM, AVG, COUNT, MAX, MIN
+Project Structure
 
----
-
-## Quick Start
-
-### Prerequisites
-- Node.js 18+
-- Python 3.11+
-- PostgreSQL 15+
-
-### 1. Database Setup
-
-```bash
-psql -U postgres
-CREATE DATABASE sales_dashboard;
-\q
-```
-
-### 2. Backend Setup
-
-```bash
-cd backend
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-# Edit .env — set DATABASE_URL to your PostgreSQL connection string
-
-# Start the API server
-uvicorn main:app --reload --port 8000
-```
-
-The server auto-seeds 600 realistic synthetic sales records on first launch.
-
-### 3. Frontend Setup
-
-```bash
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Open **http://localhost:5173** in your browser.
-
----
-
-## API Documentation
-
-Interactive docs available at **http://localhost:8000/docs**
-
-### Endpoints
-
-```
-GET  /api/v1/dashboard/summary      → KPI metrics
-GET  /api/v1/revenue/monthly        → Monthly revenue data
-GET  /api/v1/regional/performance   → By-region analytics
-GET  /api/v1/customers/segmentation → RFM segments + scores
-GET  /api/v1/products/performance   → Product rankings
-GET  /api/v1/discounts/analysis     → Discount impact analysis
-GET  /api/v1/pareto/analysis        → 80/20 customer & product
-GET  /api/v1/trends/detection       → Trend classification
-GET  /api/v1/anomalies/detection    → Z-score outliers
-GET  /api/v1/insights/ai            → Business recommendations
-GET  /api/v1/reports/revenue/csv    → Download revenue CSV
-GET  /api/v1/reports/customers/csv  → Download customer CSV
-GET  /api/v1/reports/products/csv   → Download product CSV
-GET  /api/v1/reports/insights/json  → Download insights JSON
-POST /api/v1/dataset/upload         → Upload custom CSV
-```
-
----
-
-## Project Structure
-
-```
 sales-dashboard/
 ├── backend/
-│   ├── main.py                    # FastAPI app entry point
-│   ├── requirements.txt
-│   ├── .env.example
-│   ├── database/
-│   │   └── connection.py          # SQLAlchemy engine & session
-│   ├── models/
-│   │   └── sales.py               # ORM model
-│   ├── schemas/
-│   │   └── sales.py               # Pydantic request/response schemas
-│   ├── analytics/
-│   │   └── engine.py              # All analytics (Pandas + SQL)
-│   ├── services/
-│   │   └── data_generator.py      # Synthetic data generation
-│   ├── routes/
-│   │   └── api.py                 # All REST API routes
-│   └── reports/
-│       └── generator.py           # CSV/JSON report generation
+│   ├── main.py                   # FastAPI app entry, auto-seeds DB on startup
+│   ├── database/connection.py    # SQLAlchemy engine and session
+│   ├── models/sales.py           # Sale ORM model
+│   ├── schemas/sales.py          # Pydantic schemas
+│   ├── analytics/engine.py       # All analytics — SQL + Pandas pipeline
+│   ├── services/data_generator.py # Generates 600 synthetic transactions
+│   ├── routes/api.py             # 16 REST API endpoints
+│   └── reports/generator.py      # CSV and JSON report generation
 │
 └── frontend/
-    ├── index.html
-    ├── vite.config.js
-    ├── tailwind.config.js
     └── src/
-        ├── main.jsx               # React entry point
-        ├── App.jsx                # Router
-        ├── index.css              # Global styles
-        ├── components/
-        │   ├── layout/
-        │   │   ├── Sidebar.jsx    # Collapsible sidebar nav
-        │   │   └── TopBar.jsx     # Header with upload
-        │   └── ui/
-        │       └── index.jsx      # KPICard, Table, Badge, Skeleton
-        ├── pages/
-        │   ├── Overview.jsx       # Executive dashboard
-        │   ├── Revenue.jsx        # Monthly trends
-        │   ├── Regional.jsx       # Geographic analysis
-        │   ├── Customers.jsx      # RFM segmentation
-        │   ├── Products.jsx       # Product performance
-        │   ├── Discounts.jsx      # Discount impact
-        │   ├── Pareto.jsx         # 80/20 analysis
-        │   ├── Trends.jsx         # Trend detection
-        │   ├── Anomalies.jsx      # Anomaly detection
-        │   ├── Insights.jsx       # AI recommendations
-        │   └── Reports.jsx        # Export center
-        ├── services/
-        │   └── api.js             # Axios API client
-        ├── hooks/
-        │   └── useAPI.js          # Data fetching hook
-        └── utils/
-            └── helpers.js         # Formatters, colors, utilities
-```
+        ├── pages/                # 11 dashboard pages
+        ├── components/layout/    # Sidebar + TopBar with CSV upload
+        ├── components/ui/        # KPICard, Badge, Table, Skeleton
+        ├── services/api.js       # Axios API client
+        ├── hooks/useAPI.js       # Data fetching hook
+        └── utils/helpers.js      # Formatters and chart colors
 
----
 
-## Environment Variables
+How It Works
 
-```env
-# backend/.env
-DATABASE_URL=postgresql://postgres:password@localhost:5432/sales_dashboard
-SECRET_KEY=change-this-in-production
-ENVIRONMENT=development
-CORS_ORIGINS=http://localhost:5173
+Startup
 
-# Optional: for LLM-powered AI insights
-OPENAI_API_KEY=
-ANTHROPIC_API_KEY=
-```
+Server starts
+  → SQLAlchemy creates `sales` table if missing
+  → If table is empty: generate 600 synthetic rows, bulk INSERT
+  → Uvicorn serves API on :8000
+  → React app loads on :5173
 
----
+Page Load
 
-## Production Deployment
+User opens any page
+  → useAPI() hook fires → loading skeletons shown
+  → Axios calls FastAPI endpoint
+  → analytics/engine.py runs SQL query or Pandas pipeline
+  → JSON returned → React renders charts, tables, KPI cards
 
-### Docker (Recommended)
+CSV Upload
 
-```bash
-# Build and run with Docker Compose
-docker-compose up --build
-```
+User clicks Upload CSV → selects file
+  → Backend normalises column names (lowercase, spaces → underscores)
+  → Alias mapping: e.g. "amount" → "sales_amount", "client" → "customer_name"
+  → Missing columns auto-filled: category → "General", profit → 20% of revenue
+  → DELETE FROM sales → bulk INSERT new records in 500-row batches
+  → Dashboard reloads with new dataset
 
-### Manual Deployment
+Report Export
 
-**Backend (FastAPI)**
-```bash
-pip install gunicorn
-gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
-```
+User clicks Download on Reports page
+  → Browser hits /api/v1/reports/<type>
+  → Backend queries PostgreSQL, formats with Pandas
+  → StreamingResponse sends file directly to browser
 
-**Frontend (React)**
-```bash
-cd frontend
-npm run build
-# Serve dist/ with nginx or any static host
-```
 
----
+API Endpoints
 
-## Data Schema
+EndpointDescriptionGET /api/v1/dashboard/summaryKPI metricsGET /api/v1/revenue/monthlyMonthly revenue + growthGET /api/v1/regional/performanceBy-region statsGET /api/v1/customers/segmentationRFM segmentsGET /api/v1/products/performanceProduct rankingsGET /api/v1/discounts/analysisDiscount impactGET /api/v1/pareto/analysis80/20 analysisGET /api/v1/trends/detectionTrend classificationGET /api/v1/anomalies/detectionZ-score outliersGET /api/v1/insights/aiBusiness recommendationsPOST /api/v1/dataset/uploadUpload custom CSVGET /api/v1/reports/revenue/csvDownload revenue CSVGET /api/v1/reports/customers/csvDownload customer CSVGET /api/v1/reports/products/csvDownload product CSVGET /api/v1/reports/insights/jsonDownload insights JSON
 
-Each sales record contains:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| order_id | VARCHAR | Unique order identifier (ORD-XXXXXX) |
-| customer_id | VARCHAR | Customer reference (C001–C040) |
-| customer_name | VARCHAR | Full name |
-| product_name | VARCHAR | Product name |
-| product_category | VARCHAR | Electronics / Furniture / Software / Office Supplies |
-| region | VARCHAR | North / South / East / West / Central |
-| sales_amount | FLOAT | Transaction revenue |
-| quantity | INTEGER | Units ordered |
-| discount | FLOAT | Discount rate (0.0–0.30) |
-| profit | FLOAT | Net profit |
-| order_date | DATE | Transaction date (2023–2024) |
+Quick Start
 
----
+bash# 1. Create database
+psql -U postgres -c "CREATE DATABASE sales_dashboard;"
 
-## Analytics Methods
+# 2. Backend
+cd backend && python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env          # set DATABASE_URL in .env
+uvicorn main:app --reload --port 8000
 
-| Analysis | Method |
-|----------|--------|
-| RFM Segmentation | Quintile scoring (1–5 per dimension) |
-| Anomaly Detection | Z-score (|z| > 2.5 = outlier) |
-| Trend Classification | MoM % change (>10% = increasing, <-10% = declining) |
-| Pareto Analysis | Cumulative revenue % with 20th percentile threshold |
-| Discount Correlation | Pearson correlation coefficient |
-| Moving Average | 3-month rolling window |
+# 3. Frontend  (new terminal)
+cd frontend && npm install && npm run dev
 
----
+# 4. Open  http://localhost:5173
 
-## License
+Or with Docker:
 
-MIT — Free for personal and commercial use.
+bashdocker compose up --build
+
+
+CSV Upload — Accepted Column Names
+
+Only 5 columns required. Everything else is auto-filled.
+
+RequiredAccepted aliasesorder_idid, invoice_id, transaction_idcustomer_namecustomer, client, nameproduct_nameproduct, item, descriptionsales_amountrevenue, amount, total, priceorder_datedate, sale_date, invoice_date

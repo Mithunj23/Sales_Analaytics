@@ -21,7 +21,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: postgresql://postgres:password@postgres:5432/sales_dashboard
+      DATABASE_URL: postgresql://postgres:Mithun6363@postgres:5432/sales_dashboard
       SECRET_KEY: salesiq-docker-secret-key
       ENVIRONMENT: production
       CORS_ORIGINS: "http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173"
